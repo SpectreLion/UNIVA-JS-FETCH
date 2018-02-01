@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script>
+
+      const url = 'https://www.instagram.com/manchesterunited/?__a=1'
+      const instaPromise = fetch(url);
+        instaPromise.then( data =>data.json()).then( data =>{
+
+          const userData ={...data.user};
+          const {username: user,biography:bio}=userData;
+          console.log(`UserName: ${user} \nBiography: ${bio} \nOrden de menor a mayor de las publicaciones por numero de likes:`);
+
+          const post=[...data.user.media.nodes];
+          post.sort((a, b) => a.likes.count - b.likes.count);
+          post.forEach( post => {
+            console.log(`Likes:${post.likes.count} Caption:${post.caption} NoComments: ${post.comments.count}`);
+          });
+
+      })
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
